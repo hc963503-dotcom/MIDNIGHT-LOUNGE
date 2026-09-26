@@ -1,0 +1,32 @@
+const {
+  Client,
+  GatewayIntentBits,
+  Collection
+} = require("discord.js");
+
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildPresences
+  ]
+});
+
+client.commands = new Collection();
+
+client.once("ready", () => {
+  console.log(`🌙 Midnight Lounge Bot online as ${client.user.tag}`);
+  client.user.setPresence({
+    activities: [
+      {
+        name: "Midnight Lounge",
+        type: 3
+      }
+    ],
+    status: "online"
+  });
+});
+
+client.login(process.env.DISCORD_TOKEN);
